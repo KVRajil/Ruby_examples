@@ -1,5 +1,3 @@
-  #count no of word in a file  
-  
 
   file = File.open("input.txt", "r")
   contents = file.read
