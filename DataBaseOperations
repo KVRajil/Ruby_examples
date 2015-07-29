@@ -1,0 +1,54 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'active_record'
+require 'mysql'
+
+input=""
+
+ActiveRecord::Base.establish_connection(
+    :adapter => "mysql",
+    :host => "localhost",
+    :database => "students" ,
+    :username => "root" ,
+    :password=> "" )
+
+class Detail< ActiveRecord::Base
+    attr_accessor :info
+    validates_presence_of :name
+    def info
+      [:name,:age,:hobbies]
+    end
+    def get_details()
+      puts "Enter name : "
+      self.name=gets.chomp
+      puts "Enter age : "
+      self.age=gets.to_i
+      puts "Enter Hobby : "
+      self.hobbies=gets.chomp
+    end
+end
+
+  if ARGV.size==0
+  begin
+    person=Detail.new
+    person.get_details()
+    if person.valid?
+      person.save
+    else
+      puts "name is blank"
+    end
+  end
+  else
+	    ARGV.each do|a|
+
+	      if(a.match(/\-\-search\=[a-z0-9]/))
+    		t=a.scan(/\w+/)
+    		input=t[1]
+      end
+	    end
+
+	     Detail.where("name LIKE :prefix", prefix: "#{input}%").each do |foo|
+       puts "name: #{foo.name} | age: #{foo.age} |  hobbies: #{foo.hobbies}"
+	  end
+  end
