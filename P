@@ -1,0 +1,80 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'active_record'
+require 'mysql'
+
+input=""
+
+ActiveRecord::Base.establish_connection(
+    :adapter => "mysql",
+    :host => "localhost",
+    :database => "students" ,
+    :username => "root" ,
+    :password=> "" )
+
+class Detail< ActiveRecord::Base
+    attr_accessor :info
+    validate :username_format
+   def username_format
+      has_one_letter = name =~ /[a-zA-Z]/
+      all_valid_characters = name =~ /^[a-zA-Z0-9\s]+$/
+      errors.add(:name, "must have at least one letter and contain only letters, digits, or whitespace") unless (has_one_letter and all_valid_characters)
+    end
+     validates_uniqueness_of :mailid
+     validates_format_of :mailid,:with => /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
+     validates :age, numericality: true ,allow_nil: false
+    def info
+      [:name,:age,:hobbies]
+    end
+    def get_details()
+      puts "Enter name : "
+      self.name=gets.chomp
+      puts "Enter mail id: "
+      self.mailid=gets.chomp
+      puts "Enter age : "
+      self.age=gets.chomp
+      puts "Enter Hobby : "
+      self.hobbies=gets.chomp
+    end
+end
+
+  if ARGV.size==0
+  begin
+    person=Detail.new
+    person.get_details()
+    if person.valid?
+      begin
+        person.save
+        puts "inserted"
+      end
+    else
+      person.errors.each do |att,message|
+        puts " #{att} #{message}"
+      end
+    end
+  end
+  else
+	    ARGV.each do|a|
+
+	      if(a.match(/\-\-search\=[a-z0-9]/))
+          begin
+        		t=a.scan(/\w+/)
+        		input=t[1]
+          end
+        else
+          puts "invalid command line argument"
+          exit
+        end
+	   end
+       puts "\n\nSearch results\n\n"
+       count=0
+	     Detail.where("name LIKE :prefix", prefix: "#{input}%").each do |foo|
+        count+=1
+       puts "name: #{foo.name}  name: #{foo.mailid}   age: #{foo.age}   hobbies: #{foo.hobbies}"
+	  end
+    if(count==0)
+      puts "no results found"
+    end
+    puts "\n"
+  end
