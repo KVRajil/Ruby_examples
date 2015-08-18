@@ -11,9 +11,7 @@ class PersonController < MainController
 	 end
 
 	 def index
-		 Person_info.all.each do |user|
-			 puts user.username
-		 end
+		 render "index"
 	 end
 
 
