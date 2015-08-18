@@ -1,0 +1,11 @@
+<table border="1" style="width:100%" >
+<% PersonInfo.all.each do |user| %>
+  <tr>
+    <td> <%=user.id%> </td>
+    <td> <%=user.username%> </td>
+    <td> <%=user.mailid%> </td>
+    <td> <%=user.age%> </td>
+    <td> <%=user.sex%> </td>
+  </tr>
+<% end%>
+</table>

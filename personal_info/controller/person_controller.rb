@@ -7,7 +7,7 @@ class PersonController < MainController
 		 @parameter = parameter
 	 end
 	 def show
-		 "hi #{@id}"
+		 render "userinfo"
 	 end
 
 	 def index
