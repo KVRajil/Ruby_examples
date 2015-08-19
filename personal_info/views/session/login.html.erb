@@ -3,6 +3,9 @@
     login
   </head>
   <body>
+    <% if @errors %>
+        <%=@errors%>
+    <%end%>
     <form action="signin" method="POST">
       User name:<br>
       <input type="text" name="username">

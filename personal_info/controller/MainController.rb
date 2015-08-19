@@ -1,14 +1,14 @@
 require 'erb'
 class MainController
 	attr_accessor :session,:status
-	def initialize(id)
+	def initialize(id,parameter,session)
 		@id=id
 		@parameter = parameter
+		@session = session
 	end
 	def redirect_to(path)
-		@status=301
-		return path
-	end
+    @redirect = [301, {'Location' => path, 'Cache-Control' => 'no-cache'}, []]
+  end
 
 	def render(template)
 		path=File.expand_path("../../views/#{self.class.to_s.downcase.sub("controller","")}/#{template}.html.erb",__FILE__)

@@ -3,6 +3,13 @@
     Register
   </head>
   <body>
+    <% if @errors %>
+      <% @errors.each do |att,message|%>
+        <br>
+        <%=att%>
+        <%=message%>
+      <%end%>
+    <%end%>
     <form action="create" method="POST">
       name:<br>
       <input type="text" name="username">

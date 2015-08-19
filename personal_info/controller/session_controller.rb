@@ -1,9 +1,10 @@
 load './controller/MainController.rb'
 load './model/person_info.rb'
 class SessionController < MainController
-	def initialize(id,parameter)
+	def initialize(id,parameter,session)
 		@id = id
 		@parameter = parameter
+		@session = session
 	end
   def login
 		render "login"
@@ -15,15 +16,27 @@ class SessionController < MainController
 
 	def create
 		@person = PersonInfo.new(@parameter)
-		@person.save
+		if @person.valid?
+			 @person.save
+		else
+			@errors = @person.errors.full_messages
+			register()
+		end
 	end
 	def signin
 		@person = PersonInfo.find_by_username(@parameter['username'])
   	if @person && @person.password == @parameter['password']
-		"success"
+			@session[:id] = @person.id
+			puts @session[:id]
+			redirect_to "/"
 		else
-		"error"
+			@errors = "invalid username or password"
+			login()
 		end
+	end
+
+	def logout
+		@session[:id]=nil
 	end
 
 

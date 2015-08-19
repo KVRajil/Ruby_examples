@@ -20,10 +20,17 @@ class Dispatcher
     @path= @request.path_info
     @req_method=@request.request_method
     @parameters=@request.params
-    @obj = Router.call(@path,@req_method,@parameters)
+    @request.session[:id]
+    puts @request.session[:id]
+    @session = @request.session
+    @obj,action= Router.call(@path,@req_method,@parameters,@session)
+    @res = @obj.send(action)
+    @request.session.update(@obj.instance_variable_get(:@session))
     @resp=Rack::Response.new
-    @resp.write @obj
+    @resp.write @res
     @resp.finish
+
+
   end
 
 end

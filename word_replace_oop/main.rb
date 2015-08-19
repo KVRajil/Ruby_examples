@@ -18,7 +18,7 @@ class Main
     file_content = file_object.file_read(TEXT_FILE)
 
     replacer = Replacer.new
-    modified = replacer.string_replcaer(file_content, match, replace)
+    modified = replacer.string_replcaer!(file_content, match, replace)
 
     file_object.file_write(TEXT_FILE, modified)
     input_data.success_message
