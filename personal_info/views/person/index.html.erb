@@ -1,14 +1,36 @@
 <html>
 <head>
-
+  <title>index</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
-  <table border="1"  >
+
+  <div class="container">
+    <h2>Personal Details</h2>
+   <table class="table table-bordered">
+    <tr>
+      <td> ID </td>
+      <td> Name </td>
+      <td> Email </td>
+      <td> Age </td>
+      <td> Sex </td>
+    </tr>
   <% PersonInfo.all.each do |user| %>
     <tr>
-      <td><a href="/person/<%=user.id%>"><%=user.username%></a></td>
+      <td> <%=user.id%> </td>
+      <td> <%=user.username%> </td>
+      <td> <%=user.mailid%> </td>
+      <td> <%=user.age%> </td>
+      <td> <%=user.sex%> </td>
     </tr>
   <% end%>
   </table>
+  <br><br>
+  <a href="/logout">Logout</a>
+</div>
 <body>
 </html>

@@ -1,17 +1,42 @@
-<table border="1" style="width:100%" >
-  <tr>
-    <td> ID </td>
-    <td> Name </td>
-    <td> Email </td>
-    <td> Age </td>
-    <td> Sex </td>
-  </tr>
+<html>
+<head>
+  <title>personalinfo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
 
-  <tr>
-    <td> <%=@user.id%> </td>
-    <td> <%=@user.username%> </td>
-    <td> <%=@user.mailid%> </td>
-    <td> <%=@user.age%> </td>
-    <td> <%=@user.sex%> </td>
-  </tr>
-</table>
+  <div class="container">
+    <h2><%=@user.username%>'s details</h2>
+   <table class="table table-bordered">
+     <tr>
+       <td> ID </td>
+       <td> <%=@user.id%> </td>
+     </tr>
+     <tr>
+       <td> Name </td>
+       <td> <%=@user.username%> </td>
+     </tr>
+     <tr>
+       <td> Email </td>
+       <td> <%=@user.mailid%> </td>
+     </tr>
+     <tr>
+       <td> Age </td>
+       <td> <%=@user.age%> </td>
+     </tr>
+     <tr>
+       <td> Sex </td>
+       <td> <%=@user.sex%> </td>
+     </tr>
+
+   </table>
+  </table>
+  <br><br>
+  <a href="/logout">Logout</a>
+</div>
+<body>
+</html>

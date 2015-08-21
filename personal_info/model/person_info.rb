@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'active_record'
 require 'mysql'
-
 ActiveRecord::Base.establish_connection(
     :adapter => "mysql",
     :host => "localhost",

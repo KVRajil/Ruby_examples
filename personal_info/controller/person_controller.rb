@@ -17,7 +17,12 @@ class PersonController < MainController
    end
 
 	 def index
-		 render "index"
+
+		 unless(@session[:id].nil?)
+			 render "index"
+		 else
+			 redirect_to("/login")
+		 end
 	 end
 
 	 def notfound

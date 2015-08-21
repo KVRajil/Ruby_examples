@@ -1,5 +1,6 @@
 load './controller/MainController.rb'
 load './model/person_info.rb'
+require 'digest/md5'
 class SessionController < MainController
 	def initialize(id,parameter,session)
 		@id = id
@@ -16,6 +17,7 @@ class SessionController < MainController
 
 	def create
 		@person = PersonInfo.new(@parameter)
+
 		if @person.valid?
 			 @person.save
 		else
@@ -27,7 +29,7 @@ class SessionController < MainController
 		@person = PersonInfo.find_by_username(@parameter['username'])
   	if @person && @person.password == @parameter['password']
 			@session[:id] = @person.id
-			puts @session[:id]
+			puts "instance #{@session[:id]}"
 			redirect_to "/"
 		else
 			@errors = "invalid username or password"
@@ -36,7 +38,8 @@ class SessionController < MainController
 	end
 
 	def logout
-		@session[:id]=nil
+		@session.delete("id")
+		login()
 	end
 
 

@@ -2,41 +2,40 @@
 
 class Router
 
-
     def self.call(path,req_method,parameter,session)
       @path = path
       @req_methods =req_method
       @parameter = parameter
       @session = session
       @controller,@action,@id = url_parser(@path)
-      obj,action = als_load(@controller,@action,@id)
+      obj,action = class_loader(@controller,@action,@id)
     end
 
     def self.url_parser(path)
       case path
         when /^\/$/
-          ['person','index',1]
+          ['person','index',nil]
         when /^\/index$/
-          ['person','index',1]
+          ['person','index',nil]
         when /^\/person\/([0-9]+)$/
           ['person','show',"#{$1}"]
         when /^\/login$/
-            ['session','login',1]
+            ['session','login',nil]
         when /^\/logout$/
-            ['session','logout',1]
+            ['session','logout',nil]
         when /^\/register$/
-          ['session','register',1]
+          ['session','register',nil]
         when /^\/create$/
-            ['session','create',1]
+            ['session','create',nil]
         when /^\/signin$/
-            ['session','signin',1]
+            ['session','signin',nil]
         else
-            ['person','notfound',1]
+            ['person','notfound',nil]
 
       end
     end
 
-    def self.als_load(controller,action,id)
+    def self.class_loader(controller,action,id)
     		controller_file="./controller/"+controller+"_controller.rb"
     		load controller_file
     		class_name=controller.capitalize+"Controller"
