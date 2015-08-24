@@ -9,8 +9,12 @@ class PersonController < MainController
 	 end
 	 def show
 		 begin
-			 	@user = PersonInfo.find_by_id(@id)
-				render "userinfo"
+			 	unless(@session[:id].nil?)
+					@user = PersonInfo.find_by_id(@id)
+  				render "userinfo"
+	 		 else
+	 			 redirect_to("/login")
+	 		 end
 		 rescue
 			  notfound()
 		 end
