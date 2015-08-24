@@ -1,34 +1,58 @@
 <html>
   <head>
-    Register
+    <title>Register</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <style type="text/css">
+      .error{
+        color:red;
+      }
+      .container{
+        width: 500px;
+        border-style:outset;
+        margin-top: 100px;
+      }
+    </style>
   </head>
   <body>
-    <% if @errors %>
-      <% @errors.each do |att,message|%>
-        <br>
-        <%=att%>
-        <%=message%>
-      <%end%>
-    <%end%>
-    <form action="create" method="POST">
-      name:<br>
-      <input type="text" name="username">
+    <div class="container">
+      <h2>Register</h2>
+      <div class ="error">
+        <% if @errors %>
+          <% @errors.each do |att,message|%>
+            <br>
+            <%=att%>
+            <%=message%>
+          <%end%>
+        <%end%>
+      </div>
+      <form action="create" method="POST">
+        <div class="form-group">
+          name:<br>
+          <input type="text" class="form-control" name="username">
+          <br>
+          Email:<br>
+          <input type="text" class="form-control" name="mailid">
+          <br>
+          age:<br>
+          <input type="text" class="form-control" name="age">
+          <br>
+          sex:
+          <label class="radio-inline"><input type="radio" name="sex" value="male" checked="checked">Male</label>
+          <label class="radio-inline"><input type="radio" name="sex" value="female">Female</label>
+          <br>
+          <br>
+          Password:<br>
+          <input type="password" class="form-control" name="password">
+          <br><br>
+          <input type="submit" class="btn btn-default" value="Register">
+        </div>
+      </form>
       <br>
-      Email:<br>
-      <input type="text" name="mailid">
-      <br>
-      age:<br>
-      <input type="text" name="age">
-      <br>
-      sex:<input type="radio" name="sex" value="male" checked="checked">Male
-      <input type="radio" name="sex" value="female">Female
-      <br>
-      Password:<br>
-      <input type="password" name="password">
-      <br><br>
-      <input type="submit" value="Register">
-    </form>
-    <br>
-    <a href="/login">Login</a>
+      <a href="/login">Login</a>
+    </div>
   <body>
 </html>
