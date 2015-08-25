@@ -17,9 +17,10 @@ class SessionController < MainController
 
 	def create
 		@person = PersonInfo.new(@parameter)
-
+		@person.password = Digest::MD5.hexdigest(@parameter['password'])
 		if @person.valid?
 			 @person.save
+			 login()
 		else
 			@errors = @person.errors.full_messages
 			register()
@@ -27,6 +28,7 @@ class SessionController < MainController
 	end
 	def signin
 		@person = PersonInfo.find_by_username(@parameter['username'])
+		@parameter['password'] = Digest::MD5.hexdigest(@parameter['password'])
   	if @person && @person.password == @parameter['password']
 			@session[:id] = @person.id
 			puts "instance #{@session[:id]}"
